@@ -1,0 +1,31 @@
+# Docker Compose Override for Development
+# This file is automatically loaded by docker-compose
+# For Windows-specific overrides, create docker-compose.override.windows.yml
+
+version: '3.8'
+
+services:
+  backend:
+    volumes:
+      # Use named volume for better Windows compatibility
+      - backend_data:/app/data
+    environment:
+      - PYTHONUNBUFFERED=1
+      - PYTHONDONTWRITEBYTECODE=1
+
+  celery-worker:
+    volumes:
+      - backend_data:/app/data
+    environment:
+      - PYTHONUNBUFFERED=1
+      - PYTHONDONTWRITEBYTECODE=1
+
+  celery-beat:
+    volumes:
+      - backend_data:/app/data
+    environment:
+      - PYTHONUNBUFFERED=1
+      - PYTHONDONTWRITEBYTECODE=1
+
+volumes:
+  backend_data:
